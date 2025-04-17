@@ -15,8 +15,8 @@ jobs:
 
       - name: Configure Git user
         run: |
-          names=("Alex" "Sam" "Taylor" "Jordan" "Riya" "Lee" "Kai")
-          emails=("alex@fake.com" "sam@fake.com" "taylor@fake.com" "jordan@fake.com" "riya@fake.com" "lee@fake.com" "kai@fake.com")
+          names=("Dipak" "Ayushi" "Krishna" "Avni" "priya" "aarti" "Kirti")
+          emails=("dipak@gmail.com" "ayushi@gmail.com" "krishu@gmail.com" "avni@gmail.com" "ppriya@gmail.com" "aarti@gmail.com" "kirti@gmail.com")
           i=$(( RANDOM % ${#names[@]} ))
           echo "Using contributor: ${names[$i]} <${emails[$i]}>"
           git config --global user.name "${names[$i]}"
