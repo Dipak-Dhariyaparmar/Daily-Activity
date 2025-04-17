@@ -1,0 +1,32 @@
+name: Simulate Daily Contributors
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # Every day at 6AM UTC
+  workflow_dispatch:
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure Git user
+        run: |
+          names=("Alex" "Sam" "Taylor" "Jordan" "Riya" "Lee" "Kai")
+          emails=("alex@fake.com" "sam@fake.com" "taylor@fake.com" "jordan@fake.com" "riya@fake.com" "lee@fake.com" "kai@fake.com")
+          i=$(( RANDOM % ${#names[@]} ))
+          echo "Using contributor: ${names[$i]} <${emails[$i]}>"
+          git config --global user.name "${names[$i]}"
+          git config --global user.email "${emails[$i]}"
+
+      - name: Make random commits
+        run: |
+          for i in $(seq 1 $((RANDOM % 2 + 2))); do
+            echo "$(date)" >> logs.txt
+            git add logs.txt
+            git commit -m "Fake contribution $i on $(date)"
+          done
+          git push
